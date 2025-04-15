@@ -1,0 +1,213 @@
+.login-container {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin-top: 100px;
+  
+  }
+  @media (max-width:676px) {
+    .login-container {
+    max-width: fit-content;
+    margin: 50px auto;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin-top: 100px;
+  
+  }
+  }
+  
+  .login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .login-field label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .login-field input {
+    width: 80%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+
+  }
+  
+  .login-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 4px;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .login-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .error {
+    color: red;
+    font-size: 12px;
+    margin-top: 10px;
+  }
+
+  .login-container h2{
+    margin-bottom: 50px;
+    margin-top: 0; /* Adjust the value as needed */
+  }
+  .success-message{
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    color: green;
+    font-weight: bolder;
+    margin-top:40px;
+  }
+
+
+  .forgot-pass-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Dark background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Ensure modal appears above other content */
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+  }
+  
+  /* Modal content box */
+  .forgot-pass-modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+  }
+  
+  /* Modal header */
+  .forgot-pass-modal-content h3 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  
+  /* Modal form field */
+  .forgot-password-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  /* Input fields inside modal */
+  .forgot-password-field label {
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 5px;
+  }
+  
+  .forgot-password-field input {
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    outline: none;
+    width: 100%;
+    transition: border 0.3s ease;
+  }
+  
+  /* Focus on input field */
+  .forgot-password-field input:focus {
+    border-color: #007bff;
+  }
+  
+  /* Submit button */
+  .forgot-password-button {
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  /* Button hover effect */
+  .forgot-password-button:hover {
+    background-color: #0056b3;
+  }
+  
+  
+  /* Success message styling */
+  .forgot-message {
+    color: green;
+    font-size: 0.875rem;
+    margin-top: 10px;
+    text-align: center;
+  }
+  .forgot-error {
+    color: rgb(227, 9, 9);
+    font-size:medium;
+    margin-top: 10px;
+    text-align: center;
+  }
+  
+  /* Close button (optional) */
+  .close-modal-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #999;
+    cursor: pointer;
+  }
+  
+  .close-modal-button:hover {
+    color: #333;
+  }
+  
+  /* Optional: Add some animation to the modal's appearance */
+  .forgot-pass-modal {
+    animation: fadeIn 0.3s ease-in;
+  }
+  
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  
+  
+  

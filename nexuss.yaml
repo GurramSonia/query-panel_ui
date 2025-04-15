@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nexuss
+  namespace: devops-nexus
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nexuss
+  template:
+    metadata:
+      labels:
+        app: nexuss
+    spec:
+      containers:
+        - name: nexuss
+          image: sonatype/nexus3:latest
+          ports:
+            - containerPort: 8081
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nexuss
+  namespace: devops
+spec:
+  type: NodePort
+  selector:
+    app: nexuss
+  ports:
+    - port: 8081
+      targetPort: 8081
+      nodePort: 30081
+

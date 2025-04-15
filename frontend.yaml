@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name:  frontend-deployment
+  namespace: query-panel
+  annotations:
+    sidecar.istio.io/inject: "true"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: query-panel-frontend
+  template:
+    metadata:
+      labels:
+        app: query-panel-frontend
+    spec:
+      containers:
+      - name: query-panel-frontend
+        image: 683819934378.dkr.ecr.us-east-1.amazonaws.com/query-panel:imag-ui # ECR Image
+        ports:
+        - containerPort: 3000
+        env:
+          - name: REACT_APP_BACKEND_URL
+            #value: "http://localhost:5000/queryapi/"
+            #value: "https://devops.altimetrik.io/queryapi/"
+            value: "http://backend-service.query-panel.svc.cluster.local:5000/queryapi/"
+            
+            
+            #value: "http://a862de0c00aea498b8162d1a7c410d0b-1175022926.us-east-1.elb.amazonaws.com/queryapi/"
+            
+           
+             
+                
+       
+       
+       
+       
+---
+apiVersion: v1
+kind: Service
+metadata: 
+  name: frontend-service
+  namespace: query-panel
+spec:
+  selector:
+    app: query-panel-frontend
+  ports:
+    - protocol: TCP
+      port: 3000
+      targetPort: 3000
+  type: NodePort
+  #type: ClusterIP
+  #type: LoadBalancer

@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/query-ui/static/css/main.be45461e.css",
+    "main.js": "/query-ui/static/js/main.f3e9554e.js",
+    "index.html": "/query-ui/index.html",
+    "main.be45461e.css.map": "/query-ui/static/css/main.be45461e.css.map",
+    "main.f3e9554e.js.map": "/query-ui/static/js/main.f3e9554e.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.be45461e.css",
+    "static/js/main.f3e9554e.js"
+  ]
+}

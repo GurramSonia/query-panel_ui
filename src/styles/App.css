@@ -1,0 +1,88 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color:rgba(99, 165, 240, 0.521);
+}
+
+.App {
+  margin: 20px;
+}
+
+h1, h2 {
+  color:aqua;
+  text-align: center;
+}
+
+form {
+  margin: 10px 0;
+}
+
+input, textarea, select {
+  margin: 5px 0;
+}
+
+button {
+  margin-top: 10px;
+  padding: 5px 15px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+.App h1 {
+font-size: 32px;
+color: #d310b9;
+margin-bottom: 20px;
+text-align: center;
+margin-top: -20px;
+}
+@media (max-width:676px) {
+  .App h1 {
+font-size: 16px;
+color: #d310b9;
+margin-bottom: 20px;
+text-align: center;
+margin-top: -20px;
+  }
+
+}
+
+
+/* Navigation bar for links */
+nav {
+position: absolute;
+top: 20px;
+right: 20px;
+display: flex;
+gap: 15px;  /* Adds space between links */
+}
+
+/* Style for each link */
+nav a {
+text-decoration: none;
+font-size: 16px;
+color: #4CAF50;
+font-weight: bold;
+}
+
+nav a:hover {
+color: #45a049;
+}
+
+nav a {
+margin: 0 10px;
+text-decoration: none;
+color: black;
+}
+
+nav a.active-link {
+font-weight: bold;
+color: blue;
+text-decoration: underline;
+}
+
+

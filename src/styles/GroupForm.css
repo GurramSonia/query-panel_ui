@@ -1,0 +1,220 @@
+.add-container {
+    margin-top: 50px;
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    width: 570px;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .group-input {
+    width: 70%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-left: 80px;
+    margin-right: auto;
+    margin-top: 10px;
+    margin-bottom: 40px;
+  }
+  .users-list {
+     display: flex; 
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 15px;
+    margin-top: 20px;
+  }
+  .user-item {
+    display: flex;
+    align-items: center; 
+    gap: 10px;
+  }
+  .create-button {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-left: 200px;
+  }
+  .create-button:hover {
+    background-color: #218838;
+  }
+  .group-heading-management{
+    margin-top: 20px;
+    color: rgb(248, 139, 6);
+  }
+  .label-group{
+    align-items: center;
+    margin-bottom: 10px;
+    margin-right: 0px;
+    margin-left: 200px;
+   font-weight: bolder;
+  }
+  .dropdown {
+    position: relative;
+    display: inline-block;
+    width: 74%;
+    margin-left: 80px;
+    margin-top: 10px;
+  }
+  .dropdown-header {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .dropdown-arrow {
+    font-size: 12px;
+    color: #666;
+  }
+  .dropdown-options {
+    position: absolute;
+    top: 80%;
+    left: 0;
+    right: 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    z-index: 900;
+    max-height: 200px;
+    overflow-y: auto;
+    padding: 10px;
+  }
+  .dropdown-option {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+  }
+  .dropdown-option input {
+    margin-right: 8px;
+  }
+  .create-button {
+    margin-top: 20px;
+    padding: 12px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 14px;
+    cursor: pointer;
+    align-items: center;
+    margin-left: 200px;
+    max-width:200px;
+  }
+  .create-button:hover {
+    background-color: #138419d3;
+  }
+  .error {
+    color: red;
+    font-weight: bold;
+    text-align: center;
+    font-size: medium;
+  }
+  .success {
+    color: green;
+    font-weight: bold;
+    text-align: center;
+    font-size: medium;
+  }
+  .checkbox-input {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+  }
+
+
+  .group-dropdown {
+    position: relative;
+    width: 425px;
+    font-family: Arial, sans-serif;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    margin-left: 80px;
+  }
+  
+  .group-dropdown-header {
+    padding: 12px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f9f9f9;
+    border-bottom: 1px solid #ddd;
+    font-weight: 600;
+    
+  }
+  
+  .group-dropdown-arrow {
+    font-size: 18px;
+    color: #333;
+    transition: transform 0.3s ease;
+  }
+  
+  .group-dropdown-options {
+    max-height: 200px;
+    overflow-y: auto;
+    background-color: #fff;
+    border-top: 1px solid #ddd;
+    padding: 10px;
+    box-sizing: border-box;
+  }
+  
+  .group-dropdown-option {
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #555;
+    transition: background-color 0.2s ease;
+  }
+  
+  .group-dropdown-option:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .group-dropdown-option input {
+    margin-right: 10px;
+    accent-color: #007bff; 
+  }
+  
+  .group-dropdown-option label {
+    margin: 0;
+    font-size: 14px;
+    color: #333;
+  }
+  
+  .group-dropdown-option input:checked {
+    border-color: #007bff;
+  }
+  
+  /* Style for the dropdown when open */
+  .group-dropdown.open .group-dropdown-options {
+    display: block;
+  }
+  
+  .group-dropdown.open .group-dropdown-arrow {
+    transform: rotate(180deg); /* Rotates the arrow when dropdown is open */
+  }
+  
+  /* Optional: add a hover effect to the header for better UX */
+  .group-dropdown-header:hover {
+    background-color: #e9ecef;
+  }
+  
+
+
+
+
+  

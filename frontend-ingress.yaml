@@ -1,0 +1,30 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: query-panel-ingress-frontend
+  namespace: query-panel
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /query-ui/$2
+    #nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"  # Enforce SSL redirection
+    nginx.ingress.kubernetes.io/secure-backends: "true"
+spec:
+  ingressClassName: nginx # Use "nginx" for the Ingress controller
+  rules:
+    #- host: a862de0c00aea498b8162d1a7c410d0b-1175022926.us-east-1.elb.amazonaws.com 
+    - host: devops.altimetrik.io
+    #- host: frontend-service.query-panel.svc.cluster.local
+
+ 
+      http:
+        paths:
+          - path : /query-ui(/|$)(.*)
+          #- path : /query-login
+            pathType: ImplementationSpecific
+            #pathType: Prefix
+            
+            backend:
+              service:
+                name: frontend-service 
+                port:
+                  number: 3000

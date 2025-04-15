@@ -1,0 +1,116 @@
+.user-section {
+    justify-content: space-between; /* Distribute sections evenly */
+    gap: 20px; /* Space between sections */
+    margin-bottom: 20px;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    margin-left: 350px;
+    /* background-color: #70b9ed; */
+    width: max-content;
+    margin: auto;
+  }
+  /* Individual sections for Admin and Non-Admin */
+
+  .user-section .admin, .user-section .non-admin {
+    width: fit-content;             /* Keeps width based on content */
+    max-width: 100%;                /* Prevents overflow on smaller screens */
+    padding: 20px;
+    border-radius: 8px;
+  /*   background-color: #7be888;   */    /* Keeps your background color */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    height: 350px;                  /* Fixed height for the container */
+    overflow-y: auto;               /* Scroll if content exceeds 400px height */
+    margin: auto;
+    background-color: whitesmoke;
+}
+  /* Section headers */
+  .user-section h2 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    color: #333;
+    margin-top: -10px;
+    color:red;
+    font-size: 18px;
+  }
+  /* List items (no lines and centered) */
+  .user-section ul {
+    list-style-type:none;
+    padding: 0;
+    margin: 0;
+  }
+  .user-section ul li {
+    font-size: 1.01em;
+    color: #555;
+    padding: 10px 0;
+    padding-left: 0%; /* Vertical padding for spacing between items */
+  }
+  .user-section.admin {
+    background-color: #70b9ed; /* Light blue for admins */
+  }
+  
+  .user-section.non-admin {
+    background-color: #7be888; /* Light green for non-admins */
+  }
+  
+  
+  
+  /* ADMINS & NON-ADMINS BUTTON TABS */
+  
+  
+  .tabs {
+   /*  padding: 10px 20px; */
+    margin-left: 0px;
+    text-align: center;
+    margin-bottom: 30px;
+    margin: auto;
+    margin-bottom: 30px;
+    margin-top:-35px;
+    
+    
+  }
+  .tabs button {
+    padding: 7px 15px;
+    margin: 0 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color:#c67558;
+    cursor: pointer;
+    background-color: #70b9ed; 
+    font-size: 16px;
+  }
+  
+  /* Error message styling */
+  .error-message {
+    color: red;
+    font-size: 1.2em;
+    margin-bottom: 15px;
+    font-weight: bold;
+  }
+  .tabs button.active,.invite-users button.active {
+    background-color: #7be888;  /* Highlighted background for active button */
+    color: #fff;                /* Text color for active button */
+    border: 1px solid #7be888;  /* Optional: border to match background */
+}
+
+.tabs button:not(.active):hover {
+    background-color: #e0e0e0;  /* Hover effect for non-active buttons */
+}
+.invite-users {
+  position: absolute;
+  top: 15px; /* Adjust based on header height */
+  right: 100px;
+  border-radius: 8px;
+  padding: 10px;
+  z-index: 1000;
+  margin-right: -30px;
+  margin-top: -20px;
+}
+.invite-users button{
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 7px 15px;
+  background-color: #70b9ed; 
+  font-size: 16px;
+}
+  

@@ -1,0 +1,265 @@
+.group-list,
+.user-list,
+.group-sources,
+.group-databases,
+.group-tables,
+.group-operations,
+.user-operations,
+.viewemailpass,
+.view-permissions,
+.view-permissions-form,
+.add-operation,
+.add-users-group {
+  margin: 20px 0;
+  padding: 15px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: fit-content;
+  max-height: fit-content;
+}
+
+.group-list,
+.user-list {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  background-color: #f9f9f9;
+}
+
+.group-heading,
+.sources-heading,
+.databases-heading,
+.tables-heading,
+.operations-heading {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 15px;
+  margin-top: -20px;
+}
+
+.group-list .user-list ul,
+.group-users ul,
+.group-sources ul,
+.group-databases ul,
+.group-tables ul,
+.group-operations ul,
+.user-operations ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.group-item,
+.group-sources li,
+.group-databases li,
+.group-tables li,
+.group-operations li,
+.user-operations li {
+  background: #fff;
+  padding: 10px 15px;
+  margin: 5px 0;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
+  border: 1px solid #ddd;
+}
+
+.group-item:hover,
+.group-sources li:hover,
+.group-databases li:hover,
+.group-tables li:hover,
+.group-operations li:hover,
+.user-operations li:hover {
+  background: #007bff;
+  color: white;
+  transform: scale(1.05);
+}
+
+.group-item.active,
+.group-sources li.active,
+.group-databases li.active,
+.group-tables li.active,
+.group-operations li.active,
+.user-operations li.active {
+  background: #0056b3;
+  color: white;
+  font-weight: bold;
+}
+
+.group-item.active {
+  background-color: #007bff;
+  color: white;
+}
+
+.group-users li {
+  background-color: #ffffff;
+  margin-bottom: 10px;
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid rgb(112, 101, 101);
+}
+
+.group-users li:hover {
+  background-color: #f1eeee;
+  transform: translateX(3px);
+}
+
+.group-users li::before {
+  content: '👤';
+  font-size: 1.2rem;
+  color: #333;
+  background-color: whitesmoke;
+}
+
+.permission-checkbox-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.permission-checkbox input[type="checkbox"] {
+  width: 15px;
+  height: 15px;
+  margin-right: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+}
+
+.permission-checkbox input[type="checkbox"]:checked {
+  background-color: #4CAF50;
+  border-color: #4CAF50;
+}
+
+.permission-checkbox:hover {
+  color: #007BFF;
+}
+
+.add-operation,
+.add-users-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.add-operation input,
+.add-users-form input {
+  width: 85%;
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.add-operation button,
+.add-users-form button {
+  padding: 10px 5px;
+  background-color: #0f9b1d;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.add-operation button:hover,
+.add-users-form button:hover {
+  background-color: #2d8504;
+}
+
+.add-users-group {
+  align-items: center;
+}
+
+.add-users-button {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.add-users-button:hover {
+  background-color: #0056b3;
+}
+
+.viewemailpass {
+  margin-top: 20px;
+  padding: 10px;
+  border-radius: 8px;
+  background: #f8f9fa;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  max-width: 110px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.view-permissions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  border: 2px solid whitesmoke;
+  max-width: 90px;
+}
+
+.view-permissions-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  border: 1px solid hwb(0 80% 19%);
+  border-radius: 5px;
+  padding: 15px;
+  margin-top: 20px;
+}
+
+.view-permissions p {
+  background: #fff;
+  padding: 10px;
+  border-radius: 5px;
+  border-left: 4px solid;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.view-permissions p:first-child {
+  border-left-color: #4caf50; /* Green for View Email */
+}
+
+.view-permissions p:last-child {
+  border-left-color: #f44336; /* Red for View Password */
+}
+
+.update-email-pass {
+  max-width: fit-content;
+}
+
+.remove-button {
+  background-color: rgba(241, 57, 57, 0.774);
+}
+
+.remove-button:hover {
+  background-color: red;
+}
+
+.removeerror {
+  color: red;
+}
+
+.removemessage {
+  color: #218838;
+}
+
+
+
+
+
