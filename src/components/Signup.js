@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from '../axios.js';
 import { useNavigate } from 'react-router-dom';
 import '../styles/AddUser.css';
-
+import CryptoJS from "crypto-js";
 const Signup = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -10,6 +10,28 @@ const Signup = () => {
   const [email, setEmail] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
+
+  useEffect(() => {
+  const fetchToken = async () => {
+    try {
+      const response = await axios.get('auth/get-encryption-token');
+      const token = response.data.token;
+      setToken(token); // save it in state if needed
+    } catch (err) {
+      console.error('Failed to fetch token:', err);
+    }
+  };
+
+  fetchToken();
+}, []);
+  const key = CryptoJS.enc.Utf8.parse(token); // Token as key (must be 16/24/32 bytes)
+  const iv = "1234567812345678";
+  const encrypted = CryptoJS.AES.encrypt(password, key, {
+  iv: CryptoJS.enc.Utf8.parse(iv),
+  mode: CryptoJS.mode.CBC,
+  padding: CryptoJS.pad.Pkcs7,
+});
+const encryptedPassword = encrypted.toString();
 
   const handleUsernameChange = (e) => {
     const value = e.target.value;
@@ -29,7 +51,8 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('auth/query-signup', { username, email, password, role });
+      //const response = await axios.post('auth/query-signup', { username, email, password, role });
+      const response = await axios.post('auth/query-signup', { username, email, password: encryptedPassword, iv, token, role });
 
       const message = response.data[0]?.message;
       if (response.data[0]?.message) {
@@ -45,6 +68,8 @@ const Signup = () => {
     } catch (err) {
       setError(err.response?.data?.message || 'Signup failed! Please try again.');
     }
+
+
   };
 
   return (

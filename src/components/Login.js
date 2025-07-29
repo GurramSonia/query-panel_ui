@@ -2,6 +2,11 @@ import React, { useState, useEffect } from 'react';
 import axios from '../axios.js';
 import { useNavigate, useLocation } from 'react-router-dom';
 import '../styles/Login.css';
+import CryptoJS from "crypto-js";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import useTokenEffects from '../hooks/useTokenEffects.js';
+import usePasswordEncryptEffects from '../hooks/usePasswordEncryptEffects.js';
+
 
 
 const Login = () =>{
@@ -15,7 +20,9 @@ const Login = () =>{
   const [resetError, setResetError] = useState('');   
   const navigate = useNavigate();
   const location = useLocation();
-
+  const {token} = useTokenEffects();
+  const{encryptPassword,iv,}=usePasswordEncryptEffects(token);
+  const encryptedPassword = encryptPassword(password);
   // To dispaly the flash message
   useEffect(() => {
     const params = new URLSearchParams(location.search);
@@ -53,33 +60,43 @@ const  handleCloseModal=()=>{
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('auth/query-login', { username, password }, { withCredentials: true });
-     
-      console.log("response is ",response)
+      console.log("entered into sending api request");
+      // Send login request with encrypted password
+      const response = await axios.post(
+        'auth/query-login',
+        { username, password: encryptedPassword, iv, token },
+        { withCredentials: true }
+      );
+
+      console.log("response is ", response);
       if (response.data.error) {
         setError(response.data.error);
-        console.log("this is the error response",response.data.error);
+        console.log("this is the error response", response.data.error);
+        return;
       }
+
       if (response.data) {
-        const { message, user_id, role } = response.data;
+        const { message, user_id, role, jwtToken } = response.data;
+
+        // Store JWT token in localStorage if present
+        if (jwtToken) {
+          localStorage.setItem('jwtToken', jwtToken);
+        }
+
         localStorage.setItem('userId', user_id);
         localStorage.setItem('userrole', role);
-        console.log(response.data.user_role)
-        localStorage.setItem('username',username)
+        localStorage.setItem('username', username);
         localStorage.setItem('userInitial', username.charAt(0).toUpperCase());
-        console.log("response data",response.data.error); 
-        navigate(`/queryPanel?message=${encodeURIComponent(message)}`)
+        navigate(`/queryPanel?message=${encodeURIComponent(message)}`);
+      }
+    } catch (err) {
+      if (err.response && err.response.data && err.response.data.error) {
+        setError(err.response.data.error);
+        console.log("error is", err);
+      } else {
+        setError('Login failed! Please check your credentials.');
       }
     }
-      catch (err) {
-        if (err.response && err.response.data && err.response.data.error) {
-          // Set the error message from the backend response
-          setError(err.response.data.error);
-        } else {
-          // Default error message for unexpected issues
-          setError('Login failed! Please check your credentials.');
-        }
-      }
   };
   
 
@@ -108,38 +125,52 @@ const  handleCloseModal=()=>{
                   required
                 />
               </div>
-              <button type="submit" className="login-button">Login</button>
+              {/* <button type="submit" className="login-button">Login</button> */}
+              <div className="text-center">
+  <button type="submit" className="btn btn-primary px-3">Login</button>
+          </div>
+
+
            </form>
               {error && <p className="error">{error}</p>}
-              <div className="forgot-password-link">
+            {/*   <div className="forgot-password-link">
                 <a href="#" onClick={() => setShowModal(true)}>Forgot Password?</a>
-              </div>
+              </div> */}
+              <button type="button" class="btn btn-link text-danger" onClick={() => setShowModal(true)}>Forgot Password ?</button>
 
           </div>
      
+     
      {showModal && (
-        <div className="forgot-pass-modal">
-            <div className="forgot-pass-modal-content">
-              <button className="close-modal-button" onClick={handleCloseModal}>X</button>
-              <h3>Forgot Password</h3>
-              <form onSubmit={handleForgotPasswordSubmit} className="forgot-password-form">
-                  <div className="forgot-password-field">
-                    <label>Email</label>
-                    <input
-                      type="email"
-                      value={resetEmail}
-                      onChange={(e) => setResetEmail(e.target.value)}
-                      required
-                    />
-                    <button type="submit" className="login-button">send mail</button>
-                  
-                  </div>
-              </form>
-                {resetError&&<p className='forgot-error'>{resetError}</p>}
-                      {resetMessage&&<p className='forgot-message'>{resetMessage}</p>}
-            </div>
+  <div className="forgot-pass-modal">
+    <div className="forgot-pass-modal-content">
+      <button
+        type="button"
+        className="btn btn-outline-secondary close-modal-button"
+        onClick={handleCloseModal}
+      >
+        X
+      </button>
+      <h3 className="mb-4 fw-bold">Forgot Password</h3>
+      <form onSubmit={handleForgotPasswordSubmit} className="forgot-password-form">
+        <div className="forgot-password-field mb-3 text-start">
+          <label className="form-label">Email</label>
+          <input
+            type="email"
+            className="form-control"
+            value={resetEmail}
+            onChange={(e) => setResetEmail(e.target.value)}
+            required
+          />
         </div>
-     )}
+        <button type="submit" className="btn btn-success px-10">Send Email</button>
+      </form>
+      {resetError && <p className="text-danger mt-2">{resetError}</p>}
+      {resetMessage && <p className="text-success mt-2">{resetMessage}</p>}
+    </div>
+  </div>
+)}
+
     </div>
   );
 }

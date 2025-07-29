@@ -25,6 +25,7 @@ const useDashboardEffects = (navigate) => {
  
   const { section } = useParams();
 
+
   // Pagination function
   const paginate = (data, page, perPage) => {
     const indexOfLastItem = page * perPage;
@@ -171,6 +172,7 @@ const useDashboardEffects = (navigate) => {
       return !prev;
     });
   };
+
 
   return {
     flashMessage,

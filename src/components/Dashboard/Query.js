@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import PaginationControls from './PaginationControls.js';
-import axiosInstance from '../../axios'; // Adjust path as needed
+import useTokenEffects from '../../hooks/useTokenEffects.js';
+import usePasswordEncryptEffects from '../../hooks/usePasswordEncryptEffects.js';
+//import axiosInstance from '../../axios'; // Adjust path as needed
+import axios from '../../axios.js';
 import '../../styles/Query.css';
+import CryptoJS from "crypto-js";
 import AutoSuggestQueryInput from './AutoSuggestQueryInput.js';
 const QueryPanel = ({ paginate,availableDatabases,availableConnections,onDatabaseUpdate,userRole,availableDatabasesNames}) => {
   const [query, setQuery] = useState('');
@@ -12,12 +16,12 @@ const QueryPanel = ({ paginate,availableDatabases,availableConnections,onDatabas
   const [currentPage, setCurrentPage] = useState(1);
   const [resultsPerPage, setResultsPerPage] = useState(10);
   const currentResults = paginate(results, currentPage, resultsPerPage); 
-   const [submitted, setSubmitted] = useState(false); 
-   const[messages,setMessages]=useState('')
-   const [maskedConnection, setMaskedConnection] = useState('');
-   const [originalConnection, setOriginalConnection] = useState('');
-   const [databasesNames, setDatabasesNames] = useState('selectDatabase');
- 
+  const [submitted, setSubmitted] = useState(false); 
+  const[messages,setMessages]=useState('')
+  const [maskedConnection, setMaskedConnection] = useState('');
+  const [originalConnection, setOriginalConnection] = useState('');
+  const [databasesNames, setDatabasesNames] = useState('selectDatabase');
+  const {token} = useTokenEffects();
    // Mask password in connection string
    const maskPassword = (connection) => {
      return connection.replace(/(:[^@]+)@/, ":****@");
@@ -54,6 +58,17 @@ const QueryPanel = ({ paginate,availableDatabases,availableConnections,onDatabas
    };
   
 
+/*   const key = CryptoJS.enc.Utf8.parse(token); // Token as key (must be 16/24/32 bytes)
+  const iv = "1234567812345678";
+  const encrypted = CryptoJS.AES.encrypt(getFinalConnection(), key, {
+  iv: CryptoJS.enc.Utf8.parse(iv),
+  mode: CryptoJS.mode.CBC,
+  padding: CryptoJS.pad.Pkcs7,
+});
+const encryptedconnection = encrypted.toString(); */
+ const{encryptPassword,iv,}=usePasswordEncryptEffects(token);
+ const  encryptedconnection=encryptPassword(getFinalConnection());
+
   
  
 
@@ -84,7 +99,7 @@ const QueryPanel = ({ paginate,availableDatabases,availableConnections,onDatabas
  
     try {
       if(userRole==='admin'){
-         const response = await axiosInstance.post('connection/query-connection', { query,database,maskedConnection:getFinalConnection()}, { withCredentials: true })
+         const response = await axios.post('connection/query-connection', { query,database,maskedConnection: encryptedconnection,iv,token}, { withCredentials: true })
       
       
       if (response.data.error) {
@@ -112,7 +127,7 @@ const QueryPanel = ({ paginate,availableDatabases,availableConnections,onDatabas
 
       }
       else{
-      const response = await axiosInstance.post('connection/query-connection-user', { query,database,databases_names:databasesNames}, { withCredentials: true })
+      const response = await axios.post('connection/query-connection-user', { query,database,databases_names:databasesNames}, { withCredentials: true })
       if (response.data.error) {
         setError(response.data.error);
         setTimeout(() => setError(null), 3000);
@@ -147,7 +162,9 @@ const QueryPanel = ({ paginate,availableDatabases,availableConnections,onDatabas
   const fetchTables = async () => {
   try {
     if(userRole==='admin'){
-    const response = await axiosInstance.post('connection/get-tables', { database,maskedConnection:getFinalConnection() }, { withCredentials: true });
+    //const response = await axios.post('connection/get-tables', { database,maskedConnection:getFinalConnection() }, { withCredentials: true });
+    const response = await axios.post('connection/get-tables', { database,maskedConnection: encryptedconnection,iv,token  }, { withCredentials: true })
+ 
     if (response.data.tables) {
       console.log("tables",response.data.tables)
       return response.data.tables
@@ -175,7 +192,7 @@ else{
 
 const fetchPreviousQueries = async () => {
   try {
-    const response = await axiosInstance.post('connection/previous-queries',{ database},{ withCredentials: true });
+    const response = await axios.post('connection/previous-queries',{ database},{ withCredentials: true });
     if (response.data.queries) {
       const uniqueQueries = [...new Set(response.data.queries)]; // Removes duplicates
       return uniqueQueries;

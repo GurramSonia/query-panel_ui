@@ -1,7 +1,11 @@
 
 import React, { useState } from 'react';
+import  { useEffect } from 'react';
 import axiosInstance from '../../axios'; 
+import axios from '../../axios.js';
 import '../../styles/AddUser.css'
+import useTokenEffects from '../../hooks/useTokenEffects.js';
+import usePasswordEncryptEffects from '../../hooks/usePasswordEncryptEffects.js';
 
 const AddUser = () => { 
   const [username, setUsername] = useState('');
@@ -10,7 +14,7 @@ const AddUser = () => {
   const [email, setEmail] = useState('');
   const [error, setError] = useState('');
   const[message,setMessage]=useState('')
-
+  const {token} = useTokenEffects();
   const handleUsernameChange = (e) => {
     const value = e.target.value;
     setUsername(value);
@@ -25,11 +29,34 @@ const AddUser = () => {
     const value = e.target.value;
     setEmail(value);
   };
+    /* useEffect(() => {
+  const fetchToken = async () => {
+    try {
+      const response = await axios.get('auth/get-encryption-token');
+      const token = response.data.token;
+      setToken(token); // save it in state if needed
+    } catch (err) {
+      console.error('Failed to fetch token:', err);
+    }
+  };
 
+  fetchToken();
+}, []); */
+/*   const key = CryptoJS.enc.Utf8.parse(token); // Token as key (must be 16/24/32 bytes)
+  const iv = "1234567812345678";
+  const encrypted = CryptoJS.AES.encrypt(password, key, {
+  iv: CryptoJS.enc.Utf8.parse(iv),
+  mode: CryptoJS.mode.CBC,
+  padding: CryptoJS.pad.Pkcs7,
+});
+const encryptedPassword = encrypted.toString(); */
+const{encryptPassword,iv,}=usePasswordEncryptEffects(token);
+const  encryptedPassword  =encryptPassword(password);
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axiosInstance.post('auth/query-signup', { username, email, password, role });
+      //const response = await axiosInstance.post('auth/query-signup', { username, email, password, role });
+      const response = await axios.post('auth/query-signup', { username, email, password: encryptedPassword, iv, token, role });
 
       const message = response.data[0]?.message;
       if (response.data[0]?.message) {
@@ -53,6 +80,7 @@ const AddUser = () => {
     } catch (err) {
       setError(err.response?.data?.message || 'Signup failed! Please try again.');
       setTimeout(() => setError(null), 7000);
+      console.log(err)
     }
   };
  
